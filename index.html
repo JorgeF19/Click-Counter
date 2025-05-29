@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Click Counter</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="icon/CC-icon.svg" />
   </head>
   <body>
     <!-- Fuente: HK grotestk -->
@@ -13,15 +14,25 @@
       <h3>Test your clicking speed</h3>
     </div>
     <div class="click-input">
-      <button class="testBtn" id="clicksBtn" onclick="startTest()">Click here to start</button>
-      <button class="testBtn " id="counterBtn" onclick="countClicks()" >0 clicks</button>
+      <button class="testBtn" id="clicksBtn" onclick="startTest()">
+        Click here to start
+      </button>
+      <button class="testBtn" id="counterBtn" onclick="countClicks()">
+        0 clicks
+      </button>
     </div>
     <div class="buttons">
-      <button class="btn" id="60sbtn" value="60" onclick="hideButtons(this)">60 Seconds</button>
-      <button class="btn" id="30sbtn" value="30" onclick="hideButtons(this)">30 Seconds</button>
-      <button class="btn" id="15sbtn" value="15" onclick="hideButtons(this)">15 Seconds</button>
+      <button class="btn" id="60sbtn" value="60" onclick="hideButtons(this)">
+        60 Seconds
+      </button>
+      <button class="btn" id="30sbtn" value="30" onclick="hideButtons(this)">
+        30 Seconds
+      </button>
+      <button class="btn" id="15sbtn" value="15" onclick="hideButtons(this)">
+        15 Seconds
+      </button>
     </div>
-    
+
     <script src="script.js"></script>
     <div id="pantalla-carga">
       <div class="dot-spinner">

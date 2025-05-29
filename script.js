@@ -1,12 +1,13 @@
 let timeActive;
 let timer;
 let clickCount = 0;
-let currentSeconds=0;
-let CPS =[];
+let currentSeconds = 0;
+let secondCount = 0;
+let CPS = [];
 let secondsArray = [];
 function hideButtons(clickedButton) {
   let buttons = document.querySelectorAll(".btn");
-  clickCount = 0;
+
   clearInterval(timer);
   buttons.forEach((button) => {
     if (button !== clickedButton) {
@@ -42,27 +43,27 @@ function updateDisplay() {
     document.getElementById("counterBtn").style.display = "none";
     clearInterval(timer);
     document.getElementById("pantalla-carga").style.display = "flex";
+    localStorage.setItem("CPS", JSON.stringify(CPS));
+    localStorage.setItem("secondsArray", JSON.stringify(secondsArray));
     setTimeout(() => {
       window.location.href = "results.html";
     }, 500);
   }
   timeActive -= 1;
   currentSeconds++;
-  saveCountSecond()
+  saveCountSecond();
 }
 
 function countClicks() {
   clickCount++;
-  
-    
+  secondCount++;
   document.getElementById("counterBtn").innerText = clickCount + " Clicks";
   localStorage.setItem("clickCount", clickCount);
-  
 }
-function saveCountSecond(){
-    CPS.push(clickCount)
-    secondsArray.push(currentSeconds)
-
+function saveCountSecond() {
+  CPS.push(secondCount);
+  secondsArray.push(currentSeconds);
+  secondCount = 0; // Reset the second count for the next second
 }
 
 // results Script
@@ -73,8 +74,9 @@ function mainMenu() {
 
 document.addEventListener("DOMContentLoaded", function () {
   finalCount = localStorage.getItem("clickCount");
-
   finalTime = localStorage.getItem("time");
+  CPS = JSON.parse(localStorage.getItem("CPS")) || [];
+  secondsArray = JSON.parse(localStorage.getItem("secondsArray")) || [];
   average = finalCount / finalTime;
   average = average.toLocaleString("es-ES", {
     maximunFractionDigits: 1,
@@ -86,19 +88,48 @@ document.addEventListener("DOMContentLoaded", function () {
   ).innerText = `You made ${finalCount} clicks in ${finalTime} seconds!`;
   //Grafico
   const ctx = document.getElementById("clickChart").getContext("2d");
-  const chart = new chart(ctx, {
+  const chart = new Chart(ctx, {
     type: "line",
     data: {
       labels: secondsArray,
       datasets: [
         {
-          labels: "Clicks per second",
+          label: "Clicks per second",
           data: CPS,
-          borderColor: "blue",
+          borderColor: "white",
           borderWidth: 2,
           fill: false,
+          pointRadius: 5,
+          pointBackgroundColor: "white",
         },
       ],
+    },
+    options: {
+      plugins: {
+        legend: {
+          labels: {
+            color: "white", // color del label de la leyenda
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: "white",
+          },
+          grid: {
+            color: "white",
+          },
+        },
+        y: {
+          ticks: {
+            color: "white",
+          },
+          grid: {
+            color: "white",
+          },
+        },
+      },
     },
   });
 });
